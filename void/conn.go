@@ -104,7 +104,7 @@ func (c *Conn) ReadPacket() (pk.Packet, error) {
 // WritePacket write packet from the proxy to the server
 // this packet can be server-side or client-side
 // it also returns an integer value which is the pointer of
-// that packet, this is not mandatory to fill.
+// that packet.
 func (c *Conn) WritePacket(p pk.Packet) (int, error) {
 	select {
 	case <-c.ctx:
@@ -135,7 +135,7 @@ func (c *Conn) WritePacket(p pk.Packet) (int, error) {
 
 // Close closes the connection and by logging packets
 // you will be able to get the closing id which is an id
-// that changes for every Close but not for proxy crashes
+// that changes for every closing session but not for proxy crashes,
 // in that case it will be 0.
 func (c *Conn) Close() error {
 	c.mu.Lock()
@@ -158,7 +158,7 @@ func (c *Conn) RemoteAddr() net.Addr {
 	return c.conn.RemoteAddr()
 }
 
-// NetConn returns a server-side field NetConn
+// NetConn returns a server-side field NetConn.
 func (c *Conn) NetConn() net.Conn {
 	return c.conn
 }
@@ -177,8 +177,8 @@ func (c *Conn) ION(conn net.Conn) net.Conn {
 }
 
 // StartGame starts the actual game on the proxy
-// this is already field with do spawn which is when
-// you spawn in the server.
+// this already contains do spawn which a function that is
+// required for spawning in the server.
 func (c *Conn) StartGame() error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
@@ -195,8 +195,6 @@ func (c *Conn) StartGame() error {
 }
 
 // StartGameData returns the data of the game
-// this field will be empty only if there's a problem while spawning
-// which will be detected as well.
 func (c *Conn) StartGameData() *Session {
 	c.mu.Lock()
 	defer c.mu.Unlock()

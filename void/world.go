@@ -2,6 +2,7 @@ package minecraft
 
 import (
 	protocol "VoidNet/void/proto"
+	"context"
 
 	"github.com/go-gl/mathgl/mgl32"
 	"github.com/pelletier/go-toml"
@@ -54,6 +55,28 @@ func (w *World) DoSpawn() error {
 		panic(err)
 	}
 	go func() []byte {
+		return x
+	}()
+	return nil
+}
+
+// ContextDoSpawn makes the player spawn into the world with context.
+func (w *World) ContextDoSpawn(ctx context.Context) error {
+	x, err := toml.Marshal(*w)
+	if err != nil {
+		panic(err)
+	}
+	go func() []byte {
+		y := ctx.Value(x)
+		jap, err := toml.Marshal(y)
+		if err != nil {
+			panic(err)
+		}
+		for t := range jap {
+			go func() int {
+				return t
+			}()
+		}
 		return x
 	}()
 	return nil

@@ -10,22 +10,21 @@ import (
 	"github.com/pelletier/go-toml"
 )
 
-// VoidDialer is a brand net dialer based on tcp connections
+// VoidDialer is a brand net dialer based on tcp connections.
 type VoidDialer struct {
 	// ClientData returns the client data read by the proxy.
 	ClientData chan Client
-	// Callin is an internal value of the listener
+	// Callin is an internal value of the listener.
 	Callin ListenConfig
-	// Callout is an external value of the server
-	// this value will be empty if there will be some errors on dialing
+	// Callout is an external value of the server.
 	Callout VoidNet
-	// CallAccept is when the listener gives the ok to the dialer to start the dialing
+	// CallAccept is when the listener gives the ok to the dialer to start the dialing.
 	CallAccept net.Conn
-	// Connection is a field used by the server to parse the incoming connection
+	// Connection is a field used by the server to parse the incoming connection.
 	Connection *Conn
 	// VoidCallType it's still unclear why they added this
 	// we think that it's used for microsoft to know what the client is
-	// doing on the server, this field has to be filled always with ByteDataTrian
+	// doing on the server, this field has to be filled always with ByteDataTrian.
 	VoidCallType uint
 }
 

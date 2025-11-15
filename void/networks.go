@@ -8,8 +8,7 @@ import (
 	"github.com/pelletier/go-toml"
 )
 
-// Networks isb a slice of all available networks listen.
-// VoidNet is a new type of listener based on tcp
+// Networks is a slice of all available networks on listening.
 var Networks = []string{"VoidNet"}
 
 type network struct {
@@ -18,12 +17,14 @@ type network struct {
 	compressed []byte
 }
 
-// Network returns value of the network on listening.
+// Network returns values of the network on listening.
 type Network struct {
 	// Name is the name of the network which is always VOIDNET.
 	Name string
 	// Listen is a callin func that start the virtual listener.
 	Listen func(network string, address string)
+	// Data returns the network data.
+	Data []byte
 }
 
 func (network network) NetworkName() string {

@@ -10,7 +10,6 @@ import (
 )
 
 // ListenConfig is the listener of the proxy
-// this struct will result empty if there is a problem on the dialing.
 type ListenConfig struct {
 	// Network returns the used network which is always TCP or VOIDNET
 	// we have no clue why it changes.
@@ -19,18 +18,18 @@ type ListenConfig struct {
 	// the server.
 	OnlinePlayers int32
 	// MaximumPlayers returns the maximum count of players that can join
-	// the server, still unclear why OnlinePlayers, MaximumPlayers and MOTD aren't
+	// the server, it's still unclear why OnlinePlayers, MaximumPlayers and MOTD aren't
 	// together in a status provider type.
 	MaximumPlayers int32
 	// RegisterDataPlayers returns the data of all the players that joined
-	// at least one time in the server
+	// at least one time in the server.
 	RegisterDataPlayers []byte
-	// ResourcesPacks returns the server resources packs.
+	// ResourcesPacks returns the server resources packs,
 	// currently on VoidNet there's no way to add custom resources packs
 	// maybe it will be added in the future.
 	ResourcesPacks []*packs.Pack
 	// MOTD returns the motd of the server
-	// if it is empty the MOTD will be "Minecraft Server".
+	// if it is empty the motd will be "Minecraft Server".
 	MOTD string
 	// Context returns the listener context.
 	Context context.Context

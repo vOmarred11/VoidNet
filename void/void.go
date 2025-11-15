@@ -3,6 +3,7 @@ package minecraft
 import (
 	"bytes"
 	"context"
+	"errors"
 	"net"
 	"sync/atomic"
 	"time"
@@ -11,7 +12,7 @@ import (
 )
 
 // We know less the nothing about these values
-// we are trying to understand how they work and why they got added
+// we are trying to understand how they work and why they got added.
 const (
 	ByteData               = iota
 	ByteDataTrian          = 0xAAADDAF
@@ -66,7 +67,7 @@ type Void struct {
 // VoidNet is used by the proxy for parsing values sent by the client
 // to the server and for the proxy sent to the client.
 type VoidNet struct {
-	// IncomingBytes are all those bytes that get sent by the server to the proxy
+	// IncomingBytes are all those bytes that get sent by the server to the proxy.
 	IncomingBytes []byte
 	// OutgoingBytes are all those bytes that after getting parsed are sent back to
 	// the server without passing through the client.
@@ -76,7 +77,7 @@ type VoidNet struct {
 	// still unclear why they added this.
 	CompressedBytes []byte
 
-	// Buffer is a byte ibuffer
+	// Buffer is a byte ibuffer.
 	Buffer bytes.Buffer
 	// Packets is a slice of all packets sent by the proxy to the server
 	// the amount of these packet is very restricted.
@@ -228,7 +229,7 @@ func (v VoidNet) VoidNetDecryptStash(data context.Context) (context.Context, err
 	}
 	for h := range v.CompressedBytes {
 		err = toml.Unmarshal(x, h)
-		if err != data.Err() {
+		if !errors.Is(err, data.Err()) {
 			panic(err)
 		}
 		go func() []byte {
