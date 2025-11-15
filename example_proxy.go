@@ -2,10 +2,14 @@ package main
 
 import (
 	"VoidNet/void"
+	"context"
 )
 
 func main() {
-	cfg := void.ListenConfig{}
+	cfg := void.ListenConfig{
+		Network: "voidnet",
+		Context: context.Background(),
+	}
 	listener, err := cfg.Listen("voidnet", "0.0.0.0:19132")
 	if err != nil {
 		panic(err)
