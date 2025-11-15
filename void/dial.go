@@ -47,7 +47,10 @@ func (v *VoidDialer) Dial(nt *VoidNet, address string) (*Conn, error) {
 	go func() {
 		d := nt.VoidNetBuffer()
 		e := xml.NewEncoder(&d)
-		e.Flush()
+		err := e.Flush()
+		if err != nil {
+			panic(err)
+		}
 		va, err := toml.Marshal(sig)
 		if err != nil {
 			panic(err)
