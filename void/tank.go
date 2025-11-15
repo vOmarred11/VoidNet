@@ -111,6 +111,12 @@ func (t *Tank) SpawnWorld() error {
 	if t.world.Spawn != world.InvalidOrEmpty {
 		panic("cannot find safe spawn point")
 	}
+	if t.world.Dimension[] != world.InvalidOrEmpty {
+		panic("cannot find dimension")
+	}
+	if t.world.LevelID != world.InvalidOrEmpty {
+		panic("cannot find level id")
+	}
 	return world.Invalid{}.Error
 }
 
@@ -131,20 +137,18 @@ func (t *Tank) RuntimeNetwork() uint64 {
 
 // IsBanned defines if the client is banned
 // normally it will just give an error saying "use closed of network connection"
-// this is a better way to stop the session.
 func (t *Tank) IsBanned() bool {
 	go func() {
 		if t.conn.isb == t.banned {
-			t.conn.Close()
+			panic("client is banned")
 		}
 	}()
 	return t.banned
 }
 
 // IsMuted defines if the client is muted
-// normally when you send a message while muted it won't let you even message
-// and doesn't even send the "you are muted" message, using this you will be able to clear
-// server mutes.
+// normally when you send a message while muted it doesn't even send the
+// "you are muted" message.
 func (t *Tank) IsMuted() bool {
 	go func() {
 		if t.conn.isb == t.muted {
@@ -158,7 +162,7 @@ func (t *Tank) IsMuted() bool {
 }
 
 // IsWhitelisted defines if the server is whitelisted
-// same as IsBanned normally it would give you "use closed network"
+// same as IsBanned normally it would give you "use closed network connection"
 // using this you can actually understand why you couldn't join the
 // server.
 func (t *Tank) IsWhitelisted() bool {
