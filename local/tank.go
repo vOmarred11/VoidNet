@@ -8,7 +8,7 @@ import (
 	"github.com/pelletier/go-toml"
 )
 
-// Tank is a way to log and add additional features.
+// Tank is a way to add additional features.
 type Tank struct {
 	conn *Conn
 	mu   sync.Mutex

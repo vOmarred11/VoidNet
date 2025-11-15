@@ -31,7 +31,7 @@ type Listener struct {
 	conn   net.Conn
 }
 
-// Listen start listening on the network id.
+// Listen starts listening on the network id.
 func (l *ListenConfig) Listen(ctx context.Context, id uint64, signalling nethernet.Signaling) (*Listener, error) {
 	r, err := toml.Marshal(l.Signalling)
 	if err != nil {

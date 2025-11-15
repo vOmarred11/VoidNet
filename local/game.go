@@ -11,8 +11,8 @@ import (
 
 // Game is a bounce of values when the game starts.
 type Game struct {
-	// Name is the name of you local world
-	// if this is not set it will be "default".
+	// Name is the name of your local world
+	// if this is not set it will be "VoidNet lan game".
 	Name string
 	// Gamemode is the default gamemode of the world
 	// if this is not set the gamemode will be survival.
@@ -23,7 +23,8 @@ type Game struct {
 	Spawn float64
 	// MaxPlayers is the max count players that can join this world.
 	MaxPlayers int
-	// Players is the current amount of players.
+	// Players is the current amount of players
+	// for some reason it won't count you as a player.
 	Players int
 	// MOTD is the status provider of the local world
 	// if this is not set it will be "Minecraft Server".
@@ -35,15 +36,15 @@ type Game struct {
 	// Protocols is a slice of the minecraft protocol.
 	Protocols []minecraft.Protocol
 	// Items is a slice of all the item in the world,
-	// custom won't be found it this slice.
+	// custom item won't be found it this slice.
 	Items []*protocol.ItemStack
 }
 
 // Data is the data of the local network.
 type Data struct {
-	// NetworkID returns the network id.
+	// NetworkID returns the network id of the local world.
 	NetworkID uint64
-	// LocalData returns the connection dat.
+	// LocalData returns the connection data.
 	LocalData []byte
 	// Game returns game settings.
 	Game Game
@@ -72,7 +73,7 @@ func (d *Data) StartGame(prop Game) error {
 // defaultValues load default values.
 func (d *Data) defaultValues(prop Game) {
 	if prop.Name == "" {
-		prop.Name = "default"
+		prop.Name = "VoidNet lag game"
 	}
 	if prop.MaxPlayers == 0 {
 		prop.MaxPlayers = 10

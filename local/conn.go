@@ -31,7 +31,7 @@ func (c *Conn) Write(b []byte) error {
 	return u
 }
 
-// Read reads incoming bytes from the client
+// Read reads incoming bytes from the client.
 func (c *Conn) Read(b []byte) ([]byte, error) {
 	c.mu.Lock()
 	u := toml.Unmarshal(b, c.void.Buffer)
@@ -90,6 +90,8 @@ func (c *Conn) Stash(ctx context.Context) []byte {
 	ctx.Value(x)
 	return x
 }
+
+// Voidnet is a callout type for voidnet.
 func (c *Conn) Voidnet(listener *Listener) minecraft.VoidNet {
 	err := toml.Unmarshal(listener.temp, c.void.Buffer)
 	if err != nil {
@@ -97,6 +99,8 @@ func (c *Conn) Voidnet(listener *Listener) minecraft.VoidNet {
 	}
 	return c.void
 }
+
+// StartGame starts the actual game.
 func (c *Conn) StartGame(game *Data) error {
 	go func() {
 		defer c.cancel()

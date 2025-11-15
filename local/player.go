@@ -2,12 +2,12 @@ package local
 
 import "github.com/pelletier/go-toml"
 
-// Player is the entity of the world
+// Player is the client of the world.
 type Player struct {
 	// PlayerID is the local identifier of the player.
 	PlayerID uint64
 	// Tolt is the tick that responses from the client to the host.
-	Tolt     uint8
+	Tolt uint8
 }
 
 // PlayerData returns the data of the player in a byte type.
