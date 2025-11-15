@@ -27,7 +27,7 @@ func main() {
 		VoidCallType: void.ByteDataTrian,
 	}).Dial(&cfg.Call, "play.lbsg.net:19132")
 	tank := dialer.PostCallout().Tank
-	err = tank.DownloadResourcesPacks(cfg.ResourcesPacks)
+	err = tank.ForeignDownloadResourcesPacks()
 	if err != nil {
 		panic(err)
 	}

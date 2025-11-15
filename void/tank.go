@@ -59,7 +59,7 @@ func (t *Tank) DownloadResourcesPacks(packs []*packs.Pack) error {
 }
 
 // ForeignDownloadResourcesPacks downloads automatically server resources packs.
-func (t *Tank) ForeignDownloadResourcesPacks() {
+func (t *Tank) ForeignDownloadResourcesPacks() error {
 	go func() []byte {
 		pack, err := t.conn.ReadPacket()
 		if err != nil {
@@ -100,10 +100,7 @@ func (t *Tank) ForeignDownloadResourcesPacks() {
 			return netd
 		}()
 	}
-	select {
-	case <-t.conn.deadline:
-		panic("deadline exceeded foreign resources packs download")
-	}
+	return nil
 }
 
 // SpawnWorld defines if everything went good while spawning the world.
