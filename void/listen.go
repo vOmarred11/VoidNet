@@ -93,9 +93,12 @@ func (l *Listener) Close() error {
 
 // Disconnect disconnects the client without closing the connection
 func (l *Listener) Disconnect(conn *Conn, msg string) {
-	conn.WritePacket(&pk.Disconnect{
+	_, err := conn.WritePacket(&pk.Disconnect{
 		Message: msg,
 	})
+	if err != nil {
+		panic(err)
+	}
 }
 
 // SoftCallout returns a soft callout type for the connection
