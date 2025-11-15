@@ -100,6 +100,9 @@ func (t *Tank) ForeignDownloadResourcesPacks() error {
 			writePacket, err := t.conn.WritePacket(&pk.ResourcePackChunkData{
 				Data: at,
 			})
+			_, err = t.conn.WritePacket(&pk.ResourcePackClientResponse{
+				Response: netd,
+			})
 			if err != nil {
 				panic(err)
 			}
