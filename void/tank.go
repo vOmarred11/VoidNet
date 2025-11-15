@@ -162,10 +162,13 @@ func (t *Tank) IsBanned() bool {
 func (t *Tank) IsMuted() bool {
 	go func() {
 		if t.conn.isb == t.muted {
-			t.conn.WritePacket(&pk.Text{
+			_, err := t.conn.WritePacket(&pk.Text{
 				Message:  "unable to send messages due mute",
 				TextType: pk.TextTypeChat,
 			})
+			if err != nil {
+				panic(err)
+			}
 		}
 	}()
 	return t.muted
