@@ -10,7 +10,7 @@ import (
 	"github.com/pelletier/go-toml"
 )
 
-// VoidDialer is a brand net dialer based on tcp connections.
+// VoidDialer is a brand-new dialer based on tcp connections.
 type VoidDialer struct {
 	// ClientData returns the client data read by the proxy.
 	ClientData chan Client
