@@ -29,7 +29,10 @@ func (t *Tank) NewResourcePack(path string) []byte {
 		if err != nil {
 			panic(err)
 		}
-		t.conn.Write(x)
+		err = t.conn.Write(x)
+		if err != nil {
+			panic(err)
+		}
 		t.mu.Lock()
 	}()
 	defer t.mu.Unlock()

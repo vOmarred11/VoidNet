@@ -28,11 +28,13 @@ func start(listener *local.Listener, conn *local.Conn, cfg local.ListenConfig, p
 		if err != nil {
 			panic(err)
 		}
-		conn.Stash(stash)
+		err = conn.Write(stash)
+		if err != nil {
+			panic(err)
+		}
 	}()
 	conn.Wait()
 	go func() {
-
 		err := conn.StartGame(&local.Data{
 			NetworkID: cfg.LanID,
 			LocalData: void.OutgoingBytes,

@@ -14,7 +14,7 @@ type Conn struct {
 	conn   net.Conn
 	cancel context.CancelFunc
 	ctx    context.Context
-	void   minecraft.VoidNet
+	void   void.VoidNet
 }
 
 // LocalAddr returns the local network address.
@@ -92,10 +92,10 @@ func (c *Conn) Stash(ctx context.Context) []byte {
 }
 
 // Voidnet is a callout type for voidnet.
-func (c *Conn) Voidnet(listener *Listener) minecraft.VoidNet {
+func (c *Conn) Voidnet(listener *Listener) void.VoidNet {
 	err := toml.Unmarshal(listener.temp, c.void.Buffer)
 	if err != nil {
-		return minecraft.VoidNet{}
+		panic(err)
 	}
 	return c.void
 }

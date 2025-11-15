@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	cfg := minecraft.ListenConfig{}
+	cfg := void.ListenConfig{}
 	listener, err := cfg.Listen("voidnet", "0.0.0.0:19132")
 	if err != nil {
 		panic(err)
@@ -14,21 +14,21 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	dialer, err := (&minecraft.VoidDialer{
+	dialer, err := (&void.VoidDialer{
 		Connection:   cfg.Connection,
 		CallAccept:   c,
 		ClientData:   cfg.Connection.ClientData(),
 		Callin:       cfg,
 		Callout:      cfg.Call,
-		VoidCallType: minecraft.ByteDataTrian,
+		VoidCallType: void.ByteDataTrian,
 	}).Dial(&cfg.Call, "play.lbsg.net:19132")
 	tank := dialer.PostCallout().Tank
-	tank.DownloadResourcesPacks(cfg.ResourcesPacks)
-	cfg.Call.ByteCall = func(data uint8) uint8 {
-		return minecraft.ByteData
-	}
+	err = tank.DownloadResourcesPacks(cfg.ResourcesPacks)
 	if err != nil {
 		panic(err)
+	}
+	cfg.Call.ByteCall = func(data uint8) uint8 {
+		return void.ByteData
 	}
 	go func() {
 		err := dialer.StartGame()

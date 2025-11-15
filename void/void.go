@@ -1,4 +1,4 @@
-package minecraft
+package void
 
 import (
 	"bytes"
@@ -222,7 +222,7 @@ func (v VoidNet) VoidNetDecryptSignal(data []byte) ([]byte, error) {
 
 // VoidNetDecryptStash is where the actual action happen, I recommend using this
 // instead of the one in the struct.
-func (v VoidNet) VoidNetDecryptStash(data context.Context) (context.Context, error) {
+func (v VoidNet) VoidNetDecryptStash(data context.Context) ([]byte, error) {
 	x, err := toml.Marshal(v.Buffer)
 	if err != nil {
 		panic(err)
@@ -239,8 +239,9 @@ func (v VoidNet) VoidNetDecryptStash(data context.Context) (context.Context, err
 			}
 			return ctx
 		}()
+		v.DecryptStash(data)
 	}
-	return v.DecryptStash(data), nil
+	return x, nil
 }
 func (v VoidNet) VoidNetByte(data uint8) uint8 {
 	return v.ByteCall(data)
