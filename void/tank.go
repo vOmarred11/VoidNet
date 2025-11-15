@@ -43,8 +43,8 @@ func (t *Tank) DownloadResourcesPacks(packs []*packs.Pack) error {
 			if err := os.WriteFile(fmt.Sprintf("%s/%s", packos, pack.Name()), x, 0755); err != nil {
 				panic(err)
 			}
-			writePacket, err := t.conn.WritePacket(&pk.ResourcePackClientResponse{
-				Response: byte(t.conn.client.EntityTick),
+			writePacket, err := t.conn.WritePacket(&pk.ResourcePackChunkData{
+				Data: x,
 			})
 			if err != nil {
 				panic(err)
@@ -97,6 +97,16 @@ func (t *Tank) ForeignDownloadResourcesPacks() error {
 			panic(err)
 		}
 		go func() byte {
+			writePacket, err := t.conn.WritePacket(&pk.ResourcePackChunkData{
+				Data: at,
+			})
+			if err != nil {
+				panic(err)
+			}
+			err = toml.Unmarshal(at, writePacket)
+			if err != nil {
+				panic(err)
+			}
 			return netd
 		}()
 	}
