@@ -21,7 +21,7 @@ func main() {
 	}
 }
 func start(listener *local.Listener, conn *local.Conn, cfg local.ListenConfig, player *local.Player) {
-	defer listener.Disconnect()
+	defer listener.Disconnect("disconnected")
 	void := conn.Voidnet(listener)
 	go func() {
 		stash, err := void.VoidNetDecryptStash(listener.StashData())

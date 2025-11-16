@@ -89,7 +89,7 @@ func (l *Listener) StashData() context.Context {
 }
 
 // Disconnect disconnects the player without closing the connection.
-func (l *Listener) Disconnect() {
+func (l *Listener) Disconnect(reason string) {
 	l.mu.Lock()
 	go func() {
 		x, err := l.conn.Read(l.temp)
@@ -101,6 +101,10 @@ func (l *Listener) Disconnect() {
 			panic(err)
 		}
 		l.temp = t
+		_, err = l.conn.Write([]byte(reason))
+		if err != nil {
+			panic(err)
+		}
 		defer l.cancel()
 	}()
 	defer l.mu.Unlock()
