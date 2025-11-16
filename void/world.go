@@ -4,7 +4,7 @@ import (
 	protocol "VoidNet/void/proto"
 	"context"
 
-	"github.com/go-gl/mathgl/mgl32"
+	"github.com/go-gl/mathgl/mgl64"
 	"github.com/pelletier/go-toml"
 )
 
@@ -29,7 +29,7 @@ type World struct {
 	// DefaultGamemode is the world default gamemode.
 	DefaultGamemode int32
 	// Spawn returns the world spawn for every player.
-	Spawn protocol.BlockPos
+	Spawn mgl64.Vec3
 	// Time is current time of the world.
 	Time uint64
 	// Player is how the player look like when he spawns in the world.
@@ -37,8 +37,8 @@ type World struct {
 		Yaw                    float32
 		Pitch                  float32
 		Gamemode               int32
-		Spawn                  protocol.BlockPos
-		Position               mgl32.Vec3
+		Spawn                  mgl64.Vec3
+		Position               mgl64.Vec3
 		Skin                   protocol.Skin
 		Version                string
 		Items                  []*protocol.ItemEntry

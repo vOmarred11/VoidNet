@@ -136,3 +136,11 @@ func (c *Conn) StartGame(game *Data) error {
 	}()
 	return nil
 }
+func (c *Conn) NewTank() *Tank {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	tank := &Tank{
+		conn: c,
+	}
+	return tank
+}

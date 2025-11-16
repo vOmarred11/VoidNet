@@ -2,14 +2,20 @@
   <dictionary name="project">
     <words>
       <w>callin</w>
+      <w>chunkpos</w>
       <w>datas</w>
       <w>gamemode</w>
       <w>grieffing</w>
       <w>harcore</w>
       <w>ibuffer</w>
       <w>motd</w>
+      <w>mwrite</w>
+      <w>netd</w>
       <w>outchan</w>
       <w>packetid</w>
+      <w>packos</w>
+      <w>pktolt</w>
+      <w>playerspawn</w>
       <w>raddr</w>
       <w>tolt</w>
     </words>

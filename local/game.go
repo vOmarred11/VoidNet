@@ -5,6 +5,7 @@ import (
 	"VoidNet/void/packs"
 	protocol "VoidNet/void/proto"
 
+	"github.com/go-gl/mathgl/mgl64"
 	"github.com/pelletier/go-toml"
 	"github.com/sandertv/gophertunnel/minecraft"
 )
@@ -20,7 +21,7 @@ type Game struct {
 	// Spawn it the spawn of the player in the world
 	// if this not set it will be {0 , 0 , 0}
 	// I recommend setting this otherwise you will spawn in the void.
-	Spawn float64
+	Spawn mgl64.Vec3
 	// MaxPlayers is the max count players that can join this world.
 	MaxPlayers int
 	// Players is the current amount of players
@@ -55,7 +56,7 @@ func (d *Data) StartGame(prop Game) error {
 	d.defaultValues(prop)
 	x := world.New()
 	prop.Name = x.Name()
-	prop.Spawn = float64(x.Spawn().X() + x.Spawn().Y())
+	prop.Spawn = mgl64.Vec3{x.Spawn().Vec3().X(), x.Spawn().Vec3().Y(), x.Spawn().Vec3().Z()}
 	prop.Gamemode = x.DefaultGameMode()
 	go func() {
 		defer func() []byte {

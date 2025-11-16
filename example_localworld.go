@@ -42,6 +42,7 @@ func start(listener *local.Listener, conn *local.Conn, cfg local.ListenConfig, p
 				Name:       "VoidNet local",
 				MaxPlayers: 10,
 				MOTD:       "VoidNet LAN game",
+				Spawn:      conn.NewTank().SafeSpawn(),
 				Gamemode:   world.GameModeSurvival,
 			},
 		})
