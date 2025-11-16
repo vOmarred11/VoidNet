@@ -198,7 +198,7 @@ func (v VoidNet) VoidNetDecryptByte(network string) ([]byte, error) {
 }
 
 // VoidNetDecryptSignal is where the actual action happen, I recommend using this
-// instead of the one in the struct.
+// instead of the one in the struct (DecryptSignal).
 func (v VoidNet) VoidNetDecryptSignal(data []byte) ([]byte, error) {
 	x := toml.Encoder{}
 	x.Encode(data)
@@ -221,7 +221,7 @@ func (v VoidNet) VoidNetDecryptSignal(data []byte) ([]byte, error) {
 }
 
 // VoidNetDecryptStash is where the actual action happen, I recommend using this
-// instead of the one in the struct.
+// instead of the one in the struct (DecryptStash).
 func (v VoidNet) VoidNetDecryptStash(data context.Context) ([]byte, error) {
 	x, err := toml.Marshal(v.Buffer)
 	if err != nil {
