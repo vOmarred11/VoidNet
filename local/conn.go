@@ -21,6 +21,8 @@ type Conn struct {
 func (c *Conn) LocalAddr() net.Addr {
 	return c.conn.LocalAddr()
 }
+
+// Write writes data to the connection
 func (c *Conn) Write(b []byte) error {
 	c.mu.Lock()
 	u := toml.Unmarshal(b, c.void.Buffer)
@@ -28,6 +30,12 @@ func (c *Conn) Write(b []byte) error {
 	c.void.DecryptSignal = func(b []byte) []byte {
 		return c.void.DecryptSignal(b)
 	}
+	go func() {
+		_, err := c.conn.Write(b)
+		if err != nil {
+			panic(err)
+		}
+	}()
 	return u
 }
 
@@ -136,6 +144,8 @@ func (c *Conn) StartGame(game *Data) error {
 	}()
 	return nil
 }
+
+// NewTank returns a tank type.
 func (c *Conn) NewTank() *Tank {
 	c.mu.Lock()
 	defer c.mu.Unlock()
